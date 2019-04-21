@@ -1,17 +1,19 @@
-#include "Keyboard.h"
-#include "HID.h"
+#include "HID-Project.h"
+//#include "HID.h"
 
 
 // DECLARE CONSTANTS
 const int reading_pause = 100;
-const int ignition = 1;
-const int starter = 2;
+const int ignition = 1; // WHERE TO READ THE IGNITION FROM HARDWARE
+const int starter = 2; // WHERE TO READ THE STARTER FROM HARDWARE
 
 
 // DECLARE Varaibles
-int ignitionValue = 0;
-int starterValue = 0;
+uint8_t ignitionValue = 0;
+uint8_t ignitionControllerButton = 2;
 
+uint8_t starterValue = 0;
+uint8_t starterControllerButton = 3;
 
 void setup() {
   // Start the Serial1 which is connected with the IO MCU.
@@ -29,11 +31,21 @@ void setup() {
   pinMode(ignition, OUTPUT);    // Not sure why this has to be output, but if input, the value when ignition is OFF, is randomly alternating between 0 and 1
   pinMode(starter, OUTPUT);    // Not sure why this has to be output, but if input, the value when ignition is OFF or ON , is randomly alternating between 0 and 1
 
+  // Sends a clean report to the host. This is important on any Arduino type.
+  Gamepad.begin();
+
 }
 
 void loop() {
-  // Check if any Serial data from the IO MCU was received
-  int v = Serial1.read();
+  // Relsease (unpress all the buttons);
+  Gamepad.release(ignitionControllerButton);
+  Gamepad.release(starterControllerButton);
+  
+  
+
+  // ############   Potentiometer / handbrake
+  // Check if any Serial data from the IO MCU was received (-1 if no data)
+  uint16_t handbrake = Serial1.read();
   
 
   // If it's a character, print it!
@@ -43,18 +55,41 @@ void loop() {
 //    Keyboard.print(c);
 //  }
   Serial.print(F("USB: "));
-  Serial.println(v);
+  Serial.println(handbrake);
+
+  
+  if (handbrake > 0){
+    // Map the potentiometer value from 0-255 to the full range of 16bit, to make the movement in direction noticable
+    handbrake = map (handbrake, 0, 255, 0x8888, 0xFFFF);
+    // Move the Y axis on the "controller"
+    Gamepad.rxAxis(handbrake);
+  }
+
   
 // Tenningslaas
-  //ignition
+  // ############   ignition
   ignitionValue = digitalRead(ignition);
   Serial.print("IGNITION: ");
   Serial.println(ignitionValue);
   delay(100);
-  // starter
+  
+  // Press the ignition button on  a gamecontroller
+  if (ignitionValue == 1) {
+    Gamepad.press(ignitionControllerButton);
+  }
+  // ############   starter
   starterValue = digitalRead(starter);
   Serial.print("Starter: ");
   Serial.println(starterValue);
+
+  // Press the starterbutton button on a gamecontroller
+  if (starterValue == 1){
+    Gamepad.press(starterControllerButton);
+  }
+  
+  // Functions above only set the values.
+  // This writes the report to the host.
+  Gamepad.write();
   
   // Delay reading because the IO chip has to have a pause to get the correct potentionmeter value 
   delay(reading_pause);
