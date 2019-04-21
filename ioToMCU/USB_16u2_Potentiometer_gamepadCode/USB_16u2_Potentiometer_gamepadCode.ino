@@ -19,13 +19,13 @@ void setup() {
   // Start the Serial1 which is connected with the IO MCU.
   // Make sure both baud rates are the same
   // you can go up to 2000000 for very fast data transmission.
-  Serial1.begin(115200);
+  Serial1.begin(2000000);
 
   // Sends a clean report to the host. This is important on any Arduino type.
 //  Keyboard.begin();
 
   // Start the USB Serial for debugging
-  Serial.begin(115200);
+  Serial.begin(2000000);
 
   // MARK THE DIGITAL INPUTS AS INPUTS
   pinMode(ignition, OUTPUT);    // Not sure why this has to be output, but if input, the value when ignition is OFF, is randomly alternating between 0 and 1

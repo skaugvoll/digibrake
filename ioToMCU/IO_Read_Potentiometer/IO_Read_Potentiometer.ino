@@ -7,7 +7,7 @@ void setup() {
   // Start the Serial which is connected with the USB MCU.
   // Make sure both baud rates are the same
   // you can go up to 2000000 for very fast data transmission.
-  Serial.begin(115200);
+  Serial.begin(2000000);
 }
 
 void loop() {
