@@ -39,28 +39,20 @@ void setup() {
 }
 
 void loop() {
-  // Relsease (unpress all the buttons);
-//  Gamepad.release(ignitionControllerButton);
-//  Gamepad.release(starterControllerButton);
 
   // ############   Potentiometer / handbrake
   // Check if any Serial data from the IO MCU was received (-1 if no data)
   uint16_t handbrake = Serial1.read();
   
 
-  // If it's a character, print it!
-//  if (c >= 'a' && c <= 'z') {
-//    Serial.print(F("USB: "));
-//    Serial.print(c);
-//    Keyboard.print(c);
-//  }
   Serial.print(F("USB: "));
   Serial.print(handbrake);
   Serial.print(" :: ");
   Serial.println(map(handbrake, 0, 255, 0, 0xFFFF));
 
-  
-  // Map the potentiometer value from 0-255 to the full range of 16bit, to make the movement in direction noticable
+  //  To make this work. plug the handbrake into the computer. open controll board, select devices and printers. right click on hoodloader, properties, then settings, then calibrate. when the z-axis is next to callibrate pull the handbrake halfway, then start the calibration
+  // pull to full and then release (no pull) then turn on the igniton to actuall save the calibration, (pressing next does not work), then, press next all the way, and finally finished to save.
+  // Now unplugg the handbrake and replug it into the computer. now it should work. there is a bit of lag, but I'm working on it.
   handbrake = map(handbrake, 0, 255, 0, 50);
 
   // Move the Y axis on the "controller"
