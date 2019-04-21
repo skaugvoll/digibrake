@@ -1,4 +1,5 @@
 # Using an Arduino Uno as USB device.
+__Only works on Windows__
 
 The first thing we need to do is reprogram the usb chip on the arduino, the chip is called 16u2 and we are going to use HoodLoader2 to do this.
 
@@ -21,4 +22,13 @@ Select board: should be Hoodloader 2 Uno
 ## Serial vs Serial1 AKA BRIDGE between IO and USB
 Serial is the IO chip and Serial1 is then the USB chip. SO we can send info from IO (serial) to the usb (serial1)
 
- 
+
+# To get the handbrake to work properly on Windows 
+To make this work. 
+- Plug the handbrake into the computer. 
+- Open controll board, select devices and printers. 
+- Right click on hoodloader, properties, then settings, then calibrate. 
+- When the z-axis is next to callibrate pull the handbrake halfway, then start the calibration pull to full and thenrelease (no pull) then turn on the igniton to actuall save the calibration, (pressing next does not work), then, press next all the way, and finally finished to save.
+- Now unplugg the handbrake and replug it into the computer. 
+- Now it should work. 
+- There is a bit of lag, but I'm working on it. 
