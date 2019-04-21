@@ -3,7 +3,7 @@
 
 
 // DECLARE CONSTANTS
-const int reading_pause = 100;
+const int reading_pause = 10;
 const int ignition = 1; // WHERE TO READ THE IGNITION FROM HARDWARE
 const int starter = 2; // WHERE TO READ THE STARTER FROM HARDWARE
 
@@ -15,6 +15,8 @@ uint8_t ignitionControllerButton = 2;
 uint8_t starterValue = 0;
 uint8_t starterControllerButton = 3;
 
+uint16_t prevHandbrake = 0;
+
 void setup() {
   // Start the Serial1 which is connected with the IO MCU.
   // Make sure both baud rates are the same
@@ -22,7 +24,7 @@ void setup() {
   Serial1.begin(2000000);
 
   // Sends a clean report to the host. This is important on any Arduino type.
-//  Keyboard.begin();
+  // Keyboard.begin();
 
   // Start the USB Serial for debugging
   Serial.begin(2000000);
@@ -38,10 +40,8 @@ void setup() {
 
 void loop() {
   // Relsease (unpress all the buttons);
-  Gamepad.release(ignitionControllerButton);
-  Gamepad.release(starterControllerButton);
-  
-  
+//  Gamepad.release(ignitionControllerButton);
+//  Gamepad.release(starterControllerButton);
 
   // ############   Potentiometer / handbrake
   // Check if any Serial data from the IO MCU was received (-1 if no data)
@@ -55,17 +55,21 @@ void loop() {
 //    Keyboard.print(c);
 //  }
   Serial.print(F("USB: "));
-  Serial.println(handbrake);
+  Serial.print(handbrake);
+  Serial.print(" :: ");
+  Serial.println(map(handbrake, 0, 255, 0, 0xFFFF));
 
   
-  if (handbrake > 0){
-    // Map the potentiometer value from 0-255 to the full range of 16bit, to make the movement in direction noticable
-    handbrake = map (handbrake, 0, 255, 0x8888, 0xFFFF);
-    // Move the Y axis on the "controller"
-    Gamepad.rxAxis(handbrake);
+  // Map the potentiometer value from 0-255 to the full range of 16bit, to make the movement in direction noticable
+  handbrake = map(handbrake, 0, 255, 0, 50);
+
+  // Move the Y axis on the "controller"
+  if (prevHandbrake != handbrake){
+    Gamepad.zAxis(handbrake);
+    prevHandbrake = handbrake;
   }
 
-  
+
 // Tenningslaas
   // ############   ignition
   ignitionValue = digitalRead(ignition);
@@ -77,6 +81,9 @@ void loop() {
   if (ignitionValue == 1) {
     Gamepad.press(ignitionControllerButton);
   }
+  else {
+    Gamepad.release(ignitionControllerButton);
+  }
   // ############   starter
   starterValue = digitalRead(starter);
   Serial.print("Starter: ");
@@ -85,6 +92,9 @@ void loop() {
   // Press the starterbutton button on a gamecontroller
   if (starterValue == 1){
     Gamepad.press(starterControllerButton);
+  }
+  else {
+    Gamepad.release(starterControllerButton);
   }
   
   // Functions above only set the values.
