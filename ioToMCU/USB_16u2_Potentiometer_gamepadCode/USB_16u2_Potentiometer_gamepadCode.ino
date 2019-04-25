@@ -16,7 +16,7 @@ Reason for / Idea of this changes is that the potentiometer sends values bigger 
 
 
 // DECLARE CONSTANTS
-const int reading_pause = 100;
+const int reading_pause = 1;
 const int ignition = 1; // WHERE TO READ THE IGNITION FROM HARDWARE
 const int starter = 2; // WHERE TO READ THE STARTER FROM HARDWARE
 
@@ -32,7 +32,7 @@ uint16_t prevHandbrake = 0;
 
 
 int treatValue(int data) {
-    return (data * 9 / 256);
+    return (data * 9 / 255);
   }
 
 
