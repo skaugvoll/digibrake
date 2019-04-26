@@ -2,53 +2,47 @@
 
 */
 
+// Import the joystick library
 #include <Joystick.h>
 
-
-// DECLARE CONSTANTS
+// DECLARE CONSTANTS AND HARDWARE COMPONENTS
 const int reading_pause = 1;
 const int handbrakeINPUT = A0; // WHERE TO READ THE POTENTIOMETER AKA HANDBRAKE VALUES
 const int ignition = 1; // WHERE TO READ THE IGNITION FROM HARDWARE
 const int starter = 2; // WHERE TO READ THE STARTER FROM HARDWARE
+const int rLED = 12; // RED LED
+const int yLED = 13; // Yellow/Orange LED
 
-
-// DECLARE Varaibles
+// DECLARE VARIABLES AND BUTTON MAPPING
 uint8_t ignitionValue = 0;
 uint8_t ignitionControllerButton = 2;
 
 uint8_t starterValue = 0;
 uint8_t starterControllerButton = 3;
 
-// Create the Joystick
+// Create the Joystick object
 Joystick_ Joystick;
 
 void setup() {
-  // Start the Serial1 which is connected with the IO MCU.
-  // Make sure both baud rates are the same
-  // you can go up to 2000000 for very fast data transmission.
-  Serial1.begin(2000000);
-
-  // Sends a clean report to the host. This is important on any Arduino type.
-  // Keyboard.begin();
-
   // Start the USB Serial for debugging
   Serial.begin(2000000);
 
   // MARK THE DIGITAL INPUTS AS INPUTS
   pinMode(ignition, OUTPUT);    // Not sure why this has to be output, but if input, the value when ignition is OFF, is randomly alternating between 0 and 1
   pinMode(starter, OUTPUT);    // Not sure why this has to be output, but if input, the value when ignition is OFF or ON , is randomly alternating between 0 and 1
+  pinMode(rLED, OUTPUT);
+  pinMode(yLED, OUTPUT);
 
   // Sends a clean report to the host. This is important on any Arduino type.
   Joystick.begin();
+
+  // Light up the leds, can do it here, since we wont be turning them off.
+  digitalWrite(rLED, HIGH); 
+  digitalWrite(yLED, HIGH);
 }
 
 void loop() {
-  // Relsease (unpress all the buttons);
-//  Gamepad.release(ignitionControllerButton);
-//  Gamepad.release(starterControllerButton);
-
-  // ############   Potentiometer / handbrake
-  // Check if any Serial data from the IO MCU was received (-1 if no data)
+///////////////////////////////////////////////// HANDBRAKE ///////////////////////////////////////////////
   uint16_t handbrake = analogRead(handbrakeINPUT);
   
   //Serial.print(F("USB: "));
@@ -59,7 +53,7 @@ void loop() {
   // send the handbrake signal to the computer as joystick throttle representing an AXIS
   Joystick.setThrottle(handbrake);
 
-// Tenningslaas
+//////////////////////////////////////////////// Tenningslaas ///////////////////////////////////////////////
   // ############   ignition
   ignitionValue = digitalRead(ignition);
   //Serial.print("IGNITION: ");
