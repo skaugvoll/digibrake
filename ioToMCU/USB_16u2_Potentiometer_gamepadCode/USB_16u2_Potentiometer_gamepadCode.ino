@@ -83,7 +83,13 @@ void loop() {
   Serial.println(handbrake);
   // Move the Y axis on the "controller"
   //if (prevHandbrake != handbrake){
-  Gamepad.zAxis(handbrake);
+//  Gamepad.zAxis(handbrake);
+  if (handbrake > 0) {
+    Gamepad.press(4);
+  }
+  else {
+    Gamepad.release(4);
+  }
     //prevHandbrake = handbrake;
   //}
 
