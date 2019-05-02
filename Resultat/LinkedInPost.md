@@ -105,3 +105,7 @@ Jeg merket stor forskjell i input lag og håndbrekkerespons ble tilnærmet med e
 Hvis du har noen spørsmål er det bare å ta kontakt ved å sende mail til sigve@skaugvoll.com, så skal jeg prøve å svare så godt jeg kan.
 
 Happy racing!
+
+#### PS!
+If software does not work, I'm sorry, let me know and I will try to fix it!
+I'm currently using the MicroHandBrakeJoystick code, and it works great.
