@@ -98,6 +98,9 @@ De metodene man trenger er pressButton og releaseButton.
 
 Eksempler på dette finnes under mappene MicroHandBrakeJoystick og LeonardoHandbrake_starter_and_LED.
 
+### Schematics
+To be designed in Fritzing software.
+
 ## Ettertanker
 I etterkant, kjøpte jeg en billig Arduino Micro og Leonardo for å teste forskjellen til Arduino Uno.
 Jeg merket stor forskjell i input lag og håndbrekkerespons ble tilnærmet med engang. Testet håndbrekket på spill som Forza Horizon 4 og diverse andre, og merket ikke noe input lag, og er svært fornøyd med prosjektet og valgte derfor å gjøre det offentlig, slik at andre sim-racing entusiaster kan lage sitt eget håndbrekk, så billig som mulig og uten å gjøre samme feiler som meg.
