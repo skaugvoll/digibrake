@@ -99,7 +99,7 @@ De metodene man trenger er pressButton og releaseButton.
 Eksempler på dette finnes under mappene MicroHandBrakeJoystick og LeonardoHandbrake_starter_and_LED.
 
 ### Schematics
-To be designed in Fritzing software.
+![Schematics](UNO_schematics.png)
 
 ## Ettertanker
 I etterkant, kjøpte jeg en billig Arduino Micro og Leonardo for å teste forskjellen til Arduino Uno.
