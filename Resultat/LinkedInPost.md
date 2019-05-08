@@ -102,7 +102,7 @@ Eksempler på dette finnes under mappene MicroHandBrakeJoystick og LeonardoHandb
 
 ### Schematics
 #### Uno
-![UNO Schematics](UNO_schematics.png)
+![LEONARDO Schematics](UNO_schematics.png)
 
 #### Leonardo
 ![LEONARDO Schematics](Leonardo_schematics_starter_led_handbrake.png)
