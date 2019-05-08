@@ -1,6 +1,10 @@
 # Using an Arduino Uno as USB device.
 The code for the Arduino Uno is found under the folder ioToMCU
 
+![Finished product](Resultat/light1.jpg)
+
+![UNO Schematics](Resultat/UNO_schematics.png)
+
 __Only works on Windows__
 
 The first thing we need to do is reprogram the usb chip on the arduino, the chip is called 16u2 and we are going to use HoodLoader2 to do this.

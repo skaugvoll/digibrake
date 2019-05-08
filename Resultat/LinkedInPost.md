@@ -1,6 +1,8 @@
 # Digibrake
 https://github.com/skaugvoll/digibrake
 
+![Finished product](light1.jpg)
+
 ## Motivasjon
 Digibrake er et hobbyprosjekt jeg laget iløpet av påsken 2019.
 Motivasjonen bak prosjektet er å lage et analogt håndbrekk som utgir seg for å være en joystick / gamepad, (f.eks Xbox 360 spill kontroller)
@@ -99,7 +101,11 @@ De metodene man trenger er pressButton og releaseButton.
 Eksempler på dette finnes under mappene MicroHandBrakeJoystick og LeonardoHandbrake_starter_and_LED.
 
 ### Schematics
-![Schematics](UNO_schematics.png)
+#### Uno
+![UNO Schematics](UNO_schematics.png)
+
+#### Leonardo
+![LEONARDO Schematics](Leonardo_schematics_starter_led_handbrake.png)
 
 ## Ettertanker
 I etterkant, kjøpte jeg en billig Arduino Micro og Leonardo for å teste forskjellen til Arduino Uno.
@@ -111,4 +117,4 @@ Happy racing!
 
 #### PS!
 If software does not work, I'm sorry, let me know and I will try to fix it!
-I'm currently using the MicroHandBrakeJoystick code, and it works great.
+I'm currently using the LeonardoHandbrake_starter_and_LED code, and it works great.
